@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #app{
+            width: 600px;
+            margin: 50px auto;
+        }
+        .tb{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .tb th{
+            background-color: #0094ff;
+            color: #ffffff;
+        }
+        .tb td,
+        .tb th{
+            padding: 5px;
+            border: 1px solid #eeeeee;
+            text-align: center;
+        }
+        /* .add{
+
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="add">
+            品牌名称:
+            <input type="text" v-model="name">
+            <input type="button" value="添加" @click="add">
+        </div>
+        <div class="search">
+            <input type="text" v-model="searchStr" @blur="newList">
+        </div>
+        <div>
+            <table class="tb">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>品牌名称</th>
+                        <th>创立时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(v, k, i) in newList()" :key="i">
+                        <td>{{k+1}}</td>
+                        <td>{{v.name}}</td>
+                        <td>{{v.date}}</td>
+                        <td><a href="#" @click="del(k)">删除</a></td>
+                    </tr>
+                    <tr v-if="list.length===0">
+                        <td colspan="4">没有数据, 请添加</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                name: '',
+                list: [
+                    {
+                        name: '宝马',
+                        date: new Date()
+                    },
+                    {
+                        name: '宝骏',
+                        date: new Date()
+                    }, {
+                        name: '宝宝',
+                        date: new Date()
+                    }
+                ],
+                searchStr: ''
+            },
+            methods: {
+                add(){
+                    // console.log(this.name);
+                    this.list.unshift({
+                        name: this.name,
+                        date: new Date()
+                    });
+                    this.name = ''
+                },
+                del(i){
+                    //删除之前给人个机会
+                    if(confirm('确认删除?')){
+                        this.list.splice(i, 1);
+                        console.log(this.list);
+
+                    }
+                },
+                //遍历数组, 找name属性中以searchStr开头的字符
+                newList(){
+                    // console.log(this.searchStr);
+
+                    let arr = this.list.filter((v)=>{
+                        //filter中的回调应该是箭头函数
+                        // console.log(this);
+                        // console.log(this.searchStr ,v.name.startsWith(this.searchStr));
+
+                        return v.name.startsWith(this.searchStr);
+                    });
+                    console.log(arr);
+
+                    return arr;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box1{
+            background-color: lightblue;
+        }
+        .box2{
+            background: lightgrey;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <p>{{message}}</p> -->
+        <!-- v-once 只绑定一次 -->
+        <!-- <p v-once>{{message}} </p> -->
+        <!-- <button @click="click1">box1</button>
+        <button @click="click2">box2</button> -->
+        <!-- <div v-bind:class="className">写几个字</div> -->
+        <!-- <button @click="click">点击</button>
+        <div v-bind:class="{box1: isShow, box2: !isShow}">新的几个字</div> -->
+        <!-- <div :class="[a, b]"></div> -->
+        <!-- style -->
+        <!-- <div :style="{color: aa, fontSize: bb}">文字</div> -->
+        <!-- <div :style="obj">文字</div> -->
+        <!-- <div :style="[obj, style1]">文字</div> -->
+        <!-- <img :src="" alt=""> -->
+        <!-- <div :style="'font-size=120px'">文字</div> -->
+        <!--
+            数据双向绑定
+            表单
+         -->
+         <p @click="fn">随便写</p>
+         <h1>{{str}}</h1>
+         <input type="text" v-model="str">
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        // fontSize = 120px
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                message: '你有新的消息',
+                // className: 'box1'
+                isShow: true,
+                a: 'div1',
+                b: 'div2',
+                aa: 'red',
+                bb: '60px',
+                obj: {color: 'red', fontSize: '120px'},
+                style1: {fontStyle: 'italic'},
+                str: '请输入内容'
+            },
+            methods:{
+                click1(){
+                    this.className = 'box1'
+                },
+                click2() {
+                    this.className = 'box2'
+                },
+                click(){
+                    this.isShow = !this.isShow;
+                },
+                fn(){
+                    this.str += '※'
+                }
+            }
+        });
+    </script>
+</body>
+</html>
