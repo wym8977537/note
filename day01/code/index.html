@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .div1 {
+            padding: 100px;
+            background-color: lightblue;
+        }
+
+        .div2 {
+            padding: 100px;
+            background-color: lightcoral;
+        }
+
+        .div3 {
+            padding: 100px;
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 插值表达式 -->
+        <!-- {{message}} -->
+        <!-- {{message ? '今晚的月亮真圆啊' : '月亮还没出来呢'}}
+        {{ 10 > 11 }}
+        {{fn1()}} -->
+        <!--
+            指令
+            v-开头的特殊属性, 特定值预期是单个的js表达式
+            职责: 当表单是的值改变, 将产生一系列的变换, 主要是作用于DOM
+         -->
+        <!-- <p v-text="message">天还没黑透呢</p>
+         <p v-text="strHtml">天还没黑透呢</p>
+         <p v-html="strHtml"></p> -->
+        <!--
+             v-if(添加或删除) v-show(显示或隐藏)
+             v-if 更高的切换开销
+             v-show 更高的初始渲染开销
+         -->
+        <!-- <p v-if="bBool">v-if</p>
+          -->
+        <!-- <p v-show="bBool">v-show</p>
+         <p v-show="!bBool">v-show 取反</p> -->
+        <!-- <button v-on:click="fn2">点我</button> -->
+        <!-- <button @click="fn3">点我2</button> -->
+        <!-- <button @click="fn4">click</button>
+        <button @click="fn5">dblclick</button> -->
+        <!-- <button @[eventName]="fn3"> button </button> -->
+        <!-- <button @click.once="fn3">一次有效</button>
+        <a href="https://www.baidu.com" @click.prevent="fn3">百度</a> -->
+        <!-- <div class="div1" @click.capture="f1">
+            <div class="div2" @click.self="f2">
+                <div class="div3" @click="f3"></div>
+            </div>
+        </div> -->
+        <!-- <div class="div1" @click="f4('参数', $event)"></div> -->
+        <!-- v-for 数组 -->
+        <ul>
+            <li v-for="item in arr">{{item}}</li>
+            <li v-for="item of arr">{{item}}</li>
+            <li v-for="(item, index) of arr">{{item}}---{{index}}</li>
+        </ul>
+        <ul>
+            <!-- 列表数据发生改变, 视图会被更新, 绑定唯一的key值能够提升性能, 方便更新 -->
+            <li v-for="(value, key, index) in obj" :key="index">{{value}}---{{key}}---{{index}}</li>
+        </ul>
+    </div>
+    <!-- <div class="box">
+        {{message}}
+    </div>
+    <div class="box2">
+        {{message}}
+    </div> -->
+    <script src="js/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: '#app', //dom对象, 代表的是vue作用范围
+            data: { // 响应式数据
+                message: 'hello vue',
+                strHtml: '<h1>这是一个标题</h1>',
+                bBool: true,
+                // eventName: 'click'
+                obj:{
+                    name: 'tom',
+                    age:3,
+                    gender: '男'
+                },
+                arr: ['a', 'b', 'c']
+            },
+            methods: { //方法
+                fn1() {
+                    console.log(this.message + ' 加点料');
+                    return this.message + ' 加点料';
+                },
+                fn2() {
+                    // window.alert(123);
+                    console.log(123);
+
+                },
+                fn3() {
+                    this.bBool = !this.bBool;
+                },
+                fn4() {
+                    this.eventName = 'click';
+                },
+                fn5() {
+                    this.eventName = 'dblclick';
+                },
+                f1() {
+                    console.log('div1');
+                },
+                f2() {
+                    console.log('div2');
+                },
+                f3() {
+                    console.log('div3');
+                },
+                f4(str, event){
+                    console.log(event);
+
+                    console.log(str);
+
+                }
+
+            }
+        });
+        // // console.log(app);
+        // let app2 = new Vue({
+        //     el: '.box', //dom对象, 代表的是vue作用范围
+        //     data: {
+        //         message: 'hello box'
+        //     }
+        // });
+        //  let app3 = new Vue({
+        //         el: document.querySelector('.box2'),
+        //         data: {
+        //             message: 'hello bo2x'
+        //         }
+        //     });
+    </script>
+</body>
+
+</html>

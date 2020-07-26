@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box" v-to-upper="msg" @click="toTop()">{{msg}} + old</div>
+        <input type="text" v-focus>
+        <div class="box" v-pin:[direction]="300"></div>
+    </div>
+    <div id="app2">
+        <!-- <div class="box" v-to-upper="msg">{{msg}} + old</div> -->
+        <!-- <input type="text" v-focus> -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.directive("focus", {
+            inserted(el, binding) {
+                console.log(el);
+                el.focus();
+            }
+        });
+        Vue.directive('pin', function (el, binding, vnode) {
+            el.style.position = 'fixed'
+            var s = binding.arg;
+            console.log(el.style);
+            el.style[s] = binding.value + 'px'
+
+        })
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "buka, 真的不卡",
+                direction: "left"
+            },
+            //局部指令, 只属于当前vm实例
+            directives: {
+                "toUpper": {
+                    inserted(el, binding) {
+                        //el 调用当前指令的元素
+                        console.log(el, binding, binding.value);
+                        el.style.color = "red";
+                        el.innerHTML = binding.value.toUpperCase();
+                    }
+                }
+            },
+            methods: {
+                toTop(){
+                    this.direction = "top";
+                }
+            }
+        });
+        let vm2 = new Vue({
+            el: "#app2",
+            data: {
+                msg: "buka, 真的不卡!!! buka, 真的不卡!!!"
+            }
+        });
+    </script>
+</body>
+
+</html>

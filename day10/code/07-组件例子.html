@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <home></home>
+    </div>
+    
+    <script src="js/vue.js"></script>
+    <script>
+        const dashboard = {
+            template: `
+                <ul>
+                    <li v-for="(hobby, index) in hobbies" :key="index">
+                        {{hobby}}    
+                    </li>    
+                </ul>
+            `,
+            props: ['hobbies']
+        }
+        const homeList = {
+            template: `
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>SALARY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(emp, index) in empList" :key="index" >
+                        <td>{{emp.id}}</td>
+                        <td>{{emp.name}}</td>
+                        <td>{{emp.salary}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            `,
+            props: {
+                empList: Array
+            }
+        }
+        const home = {
+            template: `
+                <div>
+                    <h1>头</h1>
+                    <dashboard :hobbies="hobby"></dashboard>  
+                    <h1>身</h1> 
+                    <home-list :emp-list="empList"></home-list> 
+                </div>
+            `,
+            data(){
+                return {
+                    hobby: ['抽烟', '喝酒', '烫头', '打麻将'],
+                    empList: [
+                        {id: 1, name:'tom1', salary: 80001},
+                        {id: 2, name:'tom2', salary: 80002},
+                        {id: 3, name:'tom3', salary: 80003},
+                        {id: 3, name:'tom3', salary: 80003},
+                    ]
+                }
+            },
+            components: {
+                dashboard,
+                homeList
+            }
+        }
+        
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                
+            },
+            components: {
+                home
+            }
+        });
+    </script>
+</body>
+</html>

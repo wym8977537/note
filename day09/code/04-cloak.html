@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <p>{{msg}}</p>
+        <p v-cloak>{{msg2}}</p>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "会闪烁",
+                msg2: "不会闪烁"
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            数学: <input type="text" v-model="mathScore">
+        </div>
+        <div>
+            英语: <input type="text" v-model="englishScore">
+        </div>
+        <div>
+            总分(方法): <input type="text" v-model="sumScore()">
+        </div>
+        <div>
+            总分(计算属性-getter): <input type="text" v-model="sumScore1">
+        </div>
+        <div>
+            总分(计算属性-getter): <input type="text" v-model="sumScore1">
+        </div>
+        <div>
+            总分(计算属性-getter-setter): <input type="text" v-model="sumScore2">
+        </div>
+        <div>
+            总分(监听器): <input type="text" v-model="sumScore3">
+        </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                //定义我们要用的数据
+                mathScore: 80,
+                englishScore: 59,
+                computedNum: 0,
+                sumScore3: 139
+            },
+
+            methods: {
+                //有s的, 复数形式
+                sumScore() {
+                    //看什么时候被调用
+                    //只要执行了就会被调用
+                    console.info('sumScore被调用');
+                    return this.mathScore / 1 + this.englishScore / 1;
+                }
+            },
+
+            computed: {
+                sumScore1() {
+                    //默认定义了get(getter)方法
+                    this.computedNum++;
+                    console.info('sumScore1被调用', this.computedNum);
+                    //值会被缓存, 多次调用, 读取的是缓存的内容
+                    return this.mathScore / 1 + this.englishScore / 1;
+                },
+                sumScore2: {
+                    get() {
+                        console.info('sumScore2被调用');
+                        //值会被缓存, 多次调用, 读取的是缓存的内容
+                        return this.mathScore / 1 + this.englishScore / 1;
+                    },
+                    set(newValue) {
+                        let avgScore = newValue / 2;
+                        this.mathScore = avgScore;
+                        this.englishScore = avgScore;
+                    }
+                }
+            },
+            watch: {
+                mathScore(newValue, oldValue) {
+                    //我更新数学成绩之后,更新总分
+                    this.sumScore3 = newValue / 1 + this.englishScore / 1;
+                },
+                sumScore3(newValue, oldValue) {
+                    let avgScore = newValue / 2;
+                    this.mathScore = avgScore;
+                    this.englishScore = avgScore;
+                }
+            }
+        });
+
+        //监听器 watch :{}
+        vm.$watch('englishScore', function (newValue) {
+            this.sumScore3 = newValue / 1 + this.mathScore / 1;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 都是全局组件, 直接使用组件名 -->
+        <app-header></app-header>
+        <app-main></app-main>
+        <app-footer></app-footer>
+    </div>
+    <script src="js/vue.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/footer.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                
+            }
+        });
+    </script>
+</body>
+</html>

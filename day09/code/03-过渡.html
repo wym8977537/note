@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="node_modules/animate.css/animate.css">
+    <style>
+        /* 系统默认前缀v 如果用默认的transition组件的name属性可以不写 */
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity 1.5s;
+        }
+
+        .fade-enter,
+        .fade-leave-to {
+            opacity: 0;
+        }
+
+        .va-enter-active {
+            transition: all 1s;
+        }
+
+        .va-leave-active {
+            transition: all 3s;
+        }
+
+        .va-enter,
+        .va-leave-to {
+            opacity: 0;
+            transform: translateX(10px);
+        }
+        #app div{
+            height: 100px;
+            border: 1px solid black
+        }
+
+        /* 指定动画 */
+        .bounce-enter-active{
+            animation: bounce-in 1s;
+        }
+
+        .bounce-leave-active{
+            animation: bounce-in 1s reverse;
+        }
+        @keyframes bounce-in {
+            0%{
+                transform: scale(0);
+            }
+
+            50%{
+                transform: scale(1.5);
+            }
+
+            100%{
+                transform: scale(1);
+            }
+        }
+        .p1{
+            width: 100px;
+            height: 30px;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <button v-on:click="show=!show">toggle</button>
+            <transition name="fade">
+                <!-- 组件 -->
+                <p v-if="show">
+                    Hello Vue
+                </p>
+            </transition>
+        </div>
+        <div>
+            <transition name="va">
+                <!-- 组件 -->
+                <p v-if="show">
+                    Hello Vue
+                </p>
+            </transition>
+        </div>
+        <div>
+            <transition name="bounce">
+                <!-- 组件 -->
+                <p v-if="show" class="p1">
+                    Hello Vue
+                </p>
+            </transition>
+        </div>
+        <div>
+            <transition 
+                name="my-animate"
+                enter-active-class="animated tada"
+                leave-active-class="animated bounceOutRight"
+            >
+                <!-- 组件 -->
+                <p v-if="show" class="p1">
+                    Hello Vue
+                </p>
+            </transition>
+        </div>
+        <p v-pre>{{show}}</p>
+        <p>{{show}}</p>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                show: true
+            },
+
+        });
+    </script>
+</body>
+
+</html>

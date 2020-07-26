@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 使用组件时不能用驼峰命名 -->
+        <my-con></my-con>
+        <my-con></my-con>
+        <my-con2></my-con2>
+        <my-con2></my-con2>
+        <my-con2></my-con2>
+        <my-con3></my-con3>
+        <!-- <myCon3></myCon3> -->
+        <my-con></my-con>
+        <my-con></my-con>
+        <my-con></my-con>
+    </div>
+    <div id="app2">
+        <my-con></my-con>
+        <my-con></my-con>
+        <my-con2></my-con2>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.component('my-con', {
+            template: '<div><h1>头部组件-{{name}}</h1></div>',
+            data() {
+                //组件中的data 是函数, 返回值是一个{},能够让组件有自己独立的作用域
+                return {
+                    name: '全局组件'
+                }
+            }
+        });
+        let myCon2 = {
+            template: '<div><h1 style="color:red">头部组件-{{name}}</h1></div>',
+            data() {
+                //组件中的data 是函数, 返回值是一个{},能够让组件有自己独立的作用域
+                return {
+                    name: '局部组件'
+                }
+            }
+        }
+        let myCon3 = {
+            template: '<div><h1 style="color:red">头部组件-{{name}}</h1></div>',
+            data() {
+                //组件中的data 是函数, 返回值是一个{},能够让组件有自己独立的作用域
+                return {
+                    name: '局部组件2'
+                }
+            }
+        }
+        let vm = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            components: {
+                'my-con2': myCon2, //key组件名, value 引用的组件对象
+                myCon3
+            }
+        });
+        let vm2 = new Vue({
+            el: "#app2"
+        })
+    </script>
+</body>
+
+</html>

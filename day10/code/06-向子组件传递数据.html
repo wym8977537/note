@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <my-con v-bind:id="id" :name="name" :gender="'男'"></my-con>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const myCon = {
+            template: "<div>{{id}}---{{name}}---{{gender}}</div>",
+            // props: //三种定义数据的方式
+            props: ['id','name', 'gender'],
+            data(){
+                return {
+                    // name: '123'
+                }
+            }
+        }
+        //1. 指定传递属性名 数组
+        // props: ['id', 'name', 'salary', 'isPublished', 'commentlds', 'author', 'getEmp']
+        //2. 指定传递属性名和数据类型, 注意是对象
+        // props: {
+        //     id: Number,
+        //     name: String,
+        //     salary: Number,
+        //     isPublished: Boolearn,
+        //     commentlds: Array,
+        //     author: Object,
+        //     getEmp: Function
+        // }
+        //3. 指定属性名 数据类型 必要性 默认值
+        // props: {
+        //     name: {
+        //         type: String,
+        //         required: true,
+        //         default: '默认值'
+        //     }
+        // }
+        //引用组件时v-bind动态赋值
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                id: 1,
+                name: 'Tom',
+                gender: '公'
+            },
+            components: {
+                myCon
+            }
+        });
+    </script>
+</body>
+</html>

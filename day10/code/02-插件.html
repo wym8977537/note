@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p v-my-dir="msg"></p>
+    </div>
+    <script src="js/vue.js"></script>
+    <script src="js/plugins.js"></script>
+    <script>
+        // console.log(myPlugin);
+        //myPlugin.install(Vue, options);
+        Vue.use(myPlugin, {name: 'tom', age: 3});
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello world"
+            }
+        });
+        Vue.myGlobalMethod();
+        vm.$myMethod('buka');
+    </script>
+</body>
+</html>

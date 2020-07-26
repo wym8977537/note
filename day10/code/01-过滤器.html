@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>过滤器-无参数</h1>
+        <p>{{msg}}</p>
+        <p>{{msg|cap}}</p>
+        <p>{{msg|cap(1)}}</p>
+        <p>{{msg2|contentFilter}}</p>
+        <h1>过滤器-带参数</h1>
+        <p>{{msg|add(1, 2)}}</p>
+        <p>{{totalScore|add(java, css)}}</p>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.filter('cap', function(value, all){
+            //console.log(value, 'cap');
+            if(all){
+                let valueArr = value.split(' ');
+                console.log(valueArr);
+                for(let i = 0; i < valueArr.length; i++){
+                    valueArr[i] = valueArr[i][0].toUpperCase() + valueArr[i].slice(1);
+                }
+                return valueArr.join(' ');
+            }
+            return value[0].toUpperCase() + value.slice(1);
+        })
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello world",
+                msg2: "他TMD就是一SB",
+                totalScore: 59,
+                java: 0.2,
+                css: 0.3
+            },
+
+            filters: {
+                contentFilter(value){ //过滤敏感词 TMD SB 
+                    if(!value){
+                        return '';
+                    }
+                    //return value.toUpperCase().replace('TMD', '***').replace('SB', '***');
+                    return value.replace(/(TMD|SB)/g, '***')
+                },
+                add(value, p1, p2){
+                    // console.log(value, p1, p2);
+                    return value + p1 + p2;
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>
